@@ -3,6 +3,17 @@
 <b>Carbon</b> is a modern chat Java Edition plugin built on channels, with just about every single setting and format configurable.
 </p>
 
+## About This Fork
+
+This repository is a fork intended to speed up support, maintenance, and development.
+
+Issues that also affect the upstream project should still be reported [upstream](https://github.com/Hexaoxide/Carbon). Likewise, pull requests that are applicable to the upstream project should be submitted there as well.
+
+The upstream wiki generally applies to this fork, although some details may differ.
+
+If additional publishing or distribution outside GitHub is needed, please open an issue in this repository.
+
+
 ## Support
 
 Support is given through [GitHub Issues](https://github.com/Hexaoxide/Carbon/issues)
