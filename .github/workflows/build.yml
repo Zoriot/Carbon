@@ -42,20 +42,6 @@ jobs:
           else
             echo "STATUS=release" >> $GITHUB_ENV
           fi
-      -   name: "publish snapshot to sonatype snapshots"
-          if: "${{ env.STATUS != 'release' && github.event_name == 'push' && github.ref == 'refs/heads/trunk' }}"
-          run: ./gradlew publishAllPublicationsToSonatypeSnapshots
-          env:
-            ORG_GRADLE_PROJECT_sonatypeUsername: "${{ secrets.SONATYPE_USERNAME }}"
-            ORG_GRADLE_PROJECT_sonatypePassword: "${{ secrets.SONATYPE_PASSWORD }}"
-      -   name: "publish (pre-)release to maven central"
-          if: "${{ env.STATUS == 'release' && github.event_name == 'release' }}"
-          run: ./gradlew publishReleaseCentralPortalBundle
-          env:
-            ORG_GRADLE_PROJECT_sonatypeUsername: "${{ secrets.SONATYPE_USERNAME }}"
-            ORG_GRADLE_PROJECT_sonatypePassword: "${{ secrets.SONATYPE_PASSWORD }}"
-            ORG_GRADLE_PROJECT_signingKey: "${{ secrets.SIGNING_KEY }}"
-            ORG_GRADLE_PROJECT_signingPassword: "${{ secrets.SIGNING_PASSWORD }}"
       - name: Parse tag
         if: "${{ github.event_name == 'push' && contains(github.ref, '-beta.') }}"
         id: vars
@@ -71,18 +57,6 @@ jobs:
             build/libs/carbonchat-paper-*.jar
             build/libs/carbonchat-velocity-*.jar
             build/libs/carbonchat-fabric-*.jar
-      - name: Publish (Pre-)Release to Modrinth
-        if: "${{ env.STATUS == 'release' && github.event_name == 'release' }}"
-        run: ./gradlew :carbonchat-paper:publishModrinth :carbonchat-velocity:publishModrinth :carbonchat-fabric:publishModrinth
-        env:
-          MODRINTH_TOKEN: "${{ secrets.MODRINTH_TOKEN }}"
-          RELEASE_NOTES: "${{ github.event.release.body }}"
-      - name: Publish (Pre-)Release to Hangar
-        if: "${{ env.STATUS == 'release' && github.event_name == 'release' }}"
-        run: ./gradlew publishAllPublicationsToHangar
-        env:
-          HANGAR_UPLOAD_KEY: "${{ secrets.HANGAR_UPLOAD_KEY }}"
-          RELEASE_NOTES: "${{ github.event.release.body }}"
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
