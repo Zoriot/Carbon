@@ -359,13 +359,13 @@ public class CarbonChannelRegistry extends ChatListenerInternal implements Chann
             );
         }
 
-        final @Nullable CarbonEarlyChatEvent earlyChatEvent = this.prepareAndEmitPreChatEvent(sender, originalMessage);
+        final @Nullable CarbonEarlyChatEvent earlyChatEvent = this.prepareAndEmitPreChatEvent(sender, originalMessage, channel);
 
         if (earlyChatEvent == null || earlyChatEvent.cancelled()) {
             return;
         }
 
-        final Component parsedMessage = this.parseTags(sender, earlyChatEvent.message());
+        final @Nullable Component parsedMessage = this.parseTags(sender, earlyChatEvent.message());
         if (parsedMessage == null) {
             return;
         }
