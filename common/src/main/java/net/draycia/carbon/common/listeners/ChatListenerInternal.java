@@ -104,7 +104,7 @@ public abstract class ChatListenerInternal {
     protected @Nullable CarbonEarlyChatEvent prepareAndEmitPreChatEvent(final CarbonPlayer sender, final Component originalMessage) {
         final CarbonPlayer.ChannelMessage channelMessage = sender.resolveChannelMessage(originalMessage);
 
-        return prepareAndEmitPreChatEvent(sender, Objects.requireNonNull(channelMessage.message(), CONSOLE_SENDER_PASSED_ERROR), Objects.requireNonNull(channelMessage.channel(), CONSOLE_SENDER_PASSED_ERROR));
+        return this.prepareAndEmitPreChatEvent(sender, Objects.requireNonNull(channelMessage.message(), CONSOLE_SENDER_PASSED_ERROR), Objects.requireNonNull(channelMessage.channel(), CONSOLE_SENDER_PASSED_ERROR));
     }
 
     protected @Nullable CarbonEarlyChatEvent prepareAndEmitPreChatEvent(final CarbonPlayer sender, final Component message, final ChatChannel channel) {
