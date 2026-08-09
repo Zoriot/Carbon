@@ -43,12 +43,12 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 @DefaultQualifier(NonNull.class)
 public record UpdateChecker(Logger logger) {
 
-    private static final String GITHUB_REPO = "Hexaoxide/Carbon";
+    private static final String GITHUB_REPO = "Zoriot/Carbon";
     private static final String UPDATE_CHECKER_FETCHING_VERSION_INFORMATION = "Fetching version information...";
     private static final String DEV_BUILD_NOTICE = "This is a development version of CarbonChat (<version>)!";
     private static final String UPDATE_CHECKER_BEHIND_RELEASES = "CarbonChat is <behind> version(s) out of date (<version>).";
     private static final String UPDATE_CHECKER_DOWNLOAD_RELEASE = "Download the latest release (<latest>) from <link>";
-    private static final String RELEASE_DOWNLOADS_URL = "https://modrinth.com/plugin/carbon/versions";
+    private static final String RELEASE_DOWNLOADS_URL = "https://github.com/Zoriot/Carbon/releases";
     private static final Gson GSON = new GsonBuilder().create();
 
     public void checkVersion() {
