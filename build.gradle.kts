@@ -4,7 +4,7 @@ plugins {
   alias(libs.plugins.cloud.buildLogic.rootProject.publishing)
 }
 
-val projectVersion: String by project // get from gradle.properties
+val projectVersion = project.property("projectVersion") as String // get from gradle.properties
 version = projectVersion
 
 fun Project.platformJar(): Provider<RegularFile> =
@@ -18,7 +18,7 @@ hangarPublish.publications.register("plugin") {
   apiKey = providers.environmentVariable("HANGAR_UPLOAD_KEY")
   platforms.paper {
     jar = project(":carbonchat-paper").platformJar()
-    platformVersions.add("1.21.4-26.2")
+    platformVersions.add("1.21.4-26.3")
     dependencies {
       url("LuckPerms", "https://luckperms.net/")
       hangar("Essentials") {

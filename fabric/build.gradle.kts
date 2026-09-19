@@ -5,11 +5,11 @@ import kotlin.io.path.invariantSeparatorsPathString
 
 plugins {
   id("carbon.shadow-platform")
-  alias(libs.plugins.loom)
+  id("xyz.jpenilla.quiet-fabric-loom")
   alias(libs.plugins.resource.factory.fabric.convention)
 }
 
-val shade: Configuration by configurations.creating
+val shade: Configuration = configurations.create("shade")
 
 configurations.implementation {
   extendsFrom(shade)
@@ -35,7 +35,6 @@ dependencies {
   implementation(libs.cloudFabric) {
     exclude("net.fabricmc.fabric-api")
   }
-  include(libs.cloudFabric)
   implementation(libs.cloudSigned)
   include(libs.cloudSigned)
   implementation(libs.fabricPermissionsApi)
@@ -78,6 +77,12 @@ fabricModJson {
   suggests("miniplaceholders", "*")
 }
 
+indra {
+  javaVersions {
+    target(25)
+  }
+}
+
 carbonPlatform {
   productionJar = tasks.shadowJar.flatMap { it.archiveFile }
 }
@@ -113,14 +118,9 @@ tasks {
 
 publishMods.modrinth {
   environment = ModrinthEnvironment.SERVER_ONLY
-  minecraftVersions.set(listOf(libs.versions.minecraft.get()))
+  minecraftVersions.set(listOf("26.1.2", "26.2", "26.3"))
   modLoaders.addAll("fabric")
   requires("fabric-api")
   requires("adventure-platform-mod")
-}
-
-indra {
-  javaVersions {
-    target(25)
-  }
+  requires("cloud-minecraft-modded")
 }
